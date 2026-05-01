@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CursoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CategoriaController;
 use App\Http\Controllers\Admin\CentroController;
@@ -61,6 +62,9 @@ Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function ()
         Route::post('files',           [EdicionFileController::class, 'store'])  ->name('files.store');
         Route::delete('files/{file}',  [EdicionFileController::class, 'destroy'])->name('files.destroy');
     });
+
+    // - Nuevas Rutas para Curso
+        Route::resource('cursos', CursoController::class);
 });
 
 Route::middleware('auth')->group(function () {

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Edicion extends Model
 {
@@ -48,6 +49,15 @@ class Edicion extends Model
     {
         return $this->belongsToMany(Grupo::class, 'edicion_grupo');
     }
+
+    // - Parte nueva
+      public function curso(): HasOne
+    {
+        return $this->hasOne(Curso::class);
+    }
+    
+
+
 
 }
 
