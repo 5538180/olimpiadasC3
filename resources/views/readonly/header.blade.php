@@ -14,6 +14,9 @@
                     <li><a href="#resultados">Resultados</a></li>
                     <li><a href="#patrocinadores">Patrocinadores</a></li>
                     <li><a href="#ejercicios_ediciones_anteriores">Ejercicios propuestos</a></li>
+
+                   {{--  // - Nuevo enlace Curso por facilidad --}}
+                    <li><a href="#ejercicios_ediciones_anteriores">Ejercicios propuestos</a></li>
                     <li><a href="/dashboard">Admin</a></li>
                 </ul>
             </nav>

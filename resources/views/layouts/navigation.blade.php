@@ -74,6 +74,15 @@
                     </x-nav-link>
                 </div>
                 @endcan
+
+               {{--  // - Nuevo enlace por comodidad para mostrar los cursos implementados en el controlador con el metodo index --}}
+                @can('viewAny', App\Models\Curso::class)
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('cursos.index')" :active="request()->routeIs('cursos.index')">
+                        {{ __('Cursos') }}
+                    </x-nav-link>
+                </div>
+                @endcan
             </div>
 
             <!-- Settings Dropdown -->

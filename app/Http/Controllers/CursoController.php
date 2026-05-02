@@ -11,9 +11,10 @@ class CursoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index() : View
     {
-        //
+        $cursos = Curso::all();
+        return view('admin.cursos.index', compact('cursos'));
     }
 
     /**
@@ -29,13 +30,17 @@ class CursoController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request, Curso $curso)
+
+    /* ! Deberia controlar en la vista los datos, no aqui */
+
     {
           $request->validate([
             'edicion_id' => 'required',
             'enlace_curso_modle' => 'nullable',
         ]);
 
-       
+       try {
+             // ? necesario controlar que el id de edicion no esta vinculado a otro curso ya si ya esta puesto que sea unique?
         $curso = new Curso();
         $curso->edicion_id = $request->input('edicion_id');
         $curso->enlace_curso_modle = $request->input('enlace_curso_modle');
@@ -43,8 +48,15 @@ class CursoController extends Controller
 
 
         $curso->save();
+       
+        return redirect()->route('cursos.index')->with('success', 'curso creado correctamente.'); 
+       } catch (\Throwable $th) {
+        $th->getMessage();
+        return redirect()->route('cursos.create')->with('error', 'Error al crear el curso: ' . $th->getMessage())->compact('curso');
+       }
+   
 
-        return redirect()->route('ediciones.index')->with('success', 'curso creado correctamente.'); 
+        
     }
 
     /**
@@ -58,9 +70,11 @@ class CursoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Curso $curso)
+    public function edit(Curso $curso) : View
+
     {
-        //
+        
+        return view('admin.cursos.edit', compact('curso'));
     }
 
     /**
@@ -68,7 +82,26 @@ class CursoController extends Controller
      */
     public function update(Request $request, Curso $curso)
     {
-        //
+
+    /* ! Deberia controlar en la vista los datos, no aqui */
+     
+           $request->validate([
+            'edicion_id' => 'required',
+            'enlace_curso_modle' => 'nullable',
+        ]);
+
+       try {
+       
+        $curso->edicion_id = $request->input('edicion_id');
+        $curso->enlace_curso_modle = $request->input('enlace_curso_modle');
+        
+        $curso->save();
+        return redirect()->route('cursos.index')->with('success', 'curso editado correctamente.'); 
+       } catch (\Throwable $th) {
+        $th->getMessage();
+        return redirect()->route('cursos.edit', ['curso' => $curso->id])->with('error', 'Error al editar el curso: ' . $th->getMessage());
+       }
+   
     }
 
     /**
@@ -76,6 +109,7 @@ class CursoController extends Controller
      */
     public function destroy(Curso $curso)
     {
-        //
+        $curso->delete();
+        return redirect()->route('cursos.index')->with('success', 'Curso eliminado correctamente.');
     }
 }
