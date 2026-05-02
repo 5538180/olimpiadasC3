@@ -19,18 +19,14 @@
         </li>
     </ul>
 
+
+
+<x-frontend.ediciones-view-components-component />
+
     {{-- ? Lo suyo seria llevarmelo a un componente donde se le aplique la logica de llamar a las ediciones etc y que esta parte quede limpio? --}}
-    <p>La siguiente es la relación de cursos en las que se han publicado los ejercicios de las últimas ediciones:</p>
+   {{--  <p>La siguiente es la relación de cursos en las que se han publicado los ejercicios de las últimas ediciones:</p>
     <ul>
-        {{$cursos = Edicion::all() }} 
-
-            @if $cursos->count() > 0
-               @foreach ($cursos as $curso)
-                   
-               @endforeach
-
-       
-        @endif
+     
         <li class="icon solid">
             <a href="https://cifpcarlos3.net/codeweek/course/view.php?id=13" target="_blank">
                 <h4><b>XVI Olimpiadas</b> (Curso 2024-2025)</h4>
@@ -51,5 +47,5 @@
                 <h4><b>XIII Olimpiadas</b> (Curso 2021-2022)</h4>
             </a>
         </li>
-    </ul>
+    </ul> --}}
 </div>
