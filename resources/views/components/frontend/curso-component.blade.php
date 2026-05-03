@@ -1,5 +1,7 @@
 <div>
-    <p>La siguiente es la relación de cursos en las que se han publicado los ejercicios de las últimas ediciones:</p>
+   
+
+        <p>La siguiente es la relación de cursos en las que se han publicado los ejercicios de las últimas ediciones:</p>
     <ul>
          <li class="icon solid">
             <a href="https://cifpcarlos3.net/codeweek/course/view.php?id=13" target="_blank">
@@ -21,12 +23,15 @@
                 <h4><b>XIII Olimpiadas</b> (Curso 2021-2022)</h4>
             </a>
         </li>
-        @foreach ($ediciones as $edicion )
+        @foreach ($cursosYediciones as $cursoYedicion)
+        
         <li class="icon solid">
-            <a href="{{ $edicion->curso->enlace_curso_modle }}" target="_blank">
-                <h4><b> Olimpiadas {{ $edicion->curso->olimpiada }}</b>Curso : {{ $edicion->curso->curso}}</h4>
+            <a href="{{ $cursoYedicion->enlace_curso_modle }}" target="_blank">
+                <h4><b> Olimpiadas {{ $cursoYedicion->olimpiada }}</b>Curso : {{ $cursoYedicion->curso}}</h4>
             </a>
         </li>
         @endforeach
     </ul>
+    
+   
 </div>

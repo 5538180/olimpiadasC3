@@ -29,21 +29,26 @@ class CursoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, Curso $curso)
+public function store(Request $request, Curso $curso)
 
     /* ! Deberia controlar en la vista los datos, no aqui */
 
     {
           $request->validate([
-            'edicion_id' => 'required',
+            'edicion_id' => 'required |integer',
             'enlace_curso_modle' => 'nullable',
+            'olimpiada' => 'required|integer',
+            'curso' => 'required|string',
         ]);
+
 
        try {
              // ? necesario controlar que el id de edicion no esta vinculado a otro curso ya si ya esta puesto que sea unique?
         $curso = new Curso();
         $curso->edicion_id = $request->input('edicion_id');
         $curso->enlace_curso_modle = $request->input('enlace_curso_modle');
+        $curso->olimpiada =  $request->input('olimpiada');
+        $curso->curso = $request->input('curso');
         
 
 
@@ -51,8 +56,8 @@ class CursoController extends Controller
        
         return redirect()->route('cursos.index')->with('success', 'curso creado correctamente.'); 
        } catch (\Throwable $th) {
-        $th->getMessage();
-        return redirect()->route('cursos.create')->with('error', 'Error al crear el curso: ' . $th->getMessage())->compact('curso');
+       
+        return redirect()->route('cursos.create')->with('error', 'Error al crear el curso: ' . $th->getMessage());
        }
    
 

@@ -14,8 +14,10 @@
                         <thead>
                             <tr>
                                 <th class="px-4 py-2">ID</th>
-                                <th class="px-4 py-2">edicio_id</th>
+                                <th class="px-4 py-2">edicion_id</th>
                                 <th class="px-4 py-2">enlace_curso_modle</th>
+                                <th class="px-4 py-2">olimpiada</th>
+                                <th class="px-4 py-2">curso</th>
                
                             </tr>
                         </thead>
@@ -25,8 +27,10 @@
                                     <td class="border px-4 py-2">{{ $curso->id }}</td>
                                     
                                     <td class="border px-4 py-2">{{ $curso->edicion_id }}</td>
-                                    {{-- * Compruevo si viene nulo o no para no liarme --}}
+                                    {{-- * Compruebo si viene nulo o no para no liarme --}}
                                     <td class="border px-4 py-2">{{$curso->enlace_curso_modle ?? 'No hay enlace asociado'}}</td>
+                                    <td class="border px-4 py-2">{{ $curso->olimpiada }}</td>
+                                    <td class="border px-4 py-2">{{ $curso->curso }}</td>
                         
                                     <td class="border px-4 py-2">
                                         @if ($curso->css_file)

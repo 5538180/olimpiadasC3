@@ -10,11 +10,24 @@ class Curso extends Model
 {
     use HasFactory;
 
-        protected $table = 'cursos'; //nombre de la tabla de la base de datos en phpmyadmin me daba problemas y la he especificado
+    // - Referencia tabla
+        protected $table = 'cursos'; 
 
+        // - Atributos a rellenar
     protected $fillable = [
         'edicion_id',
-        'enlace_curso_modle'
+        'enlace_curso_modle',
+        'olimpiada',
+        'curso'
+    ];
+    
+    // - Casteos
+       protected $casts = [
+        'edicion_id' => 'integer',
+        'enlace_curso_modle' => 'string',
+        'olimpiada' => 'integer',
+        'curso'=>'string'
+
     ];
 
     // -  Relaciones:

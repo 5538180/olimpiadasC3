@@ -21,7 +21,7 @@
 
 
 
-<x-frontend.ediciones-view-components-component />
+<x-frontend.curso-component> </x-frontend.curso-component>
 
     {{-- ? Lo suyo seria llevarmelo a un componente donde se le aplique la logica de llamar a las ediciones etc y que esta parte quede limpio? --}}
    {{--  <p>La siguiente es la relación de cursos en las que se han publicado los ejercicios de las últimas ediciones:</p>
