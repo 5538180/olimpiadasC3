@@ -12,6 +12,7 @@ use App\Http\Controllers\InscripcionesController;
 use App\Http\Controllers\Admin\PatrocinadorController;
 use App\Http\Controllers\Admin\PruebaController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ResultadosOlimpiadasController;
 use App\Http\Controllers\Admin\ParticipanteController;
 use App\Http\Controllers\Admin\EdicionController;
 use App\Http\Controllers\Admin\ResultadoController;
@@ -66,6 +67,9 @@ Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function ()
     // - Nuevas Rutas para Curso
         Route::resource('cursos', CursoController::class);
 });
+
+Route::get('/resultados_live',        [ResultadosOlimpiadasController::class, 'index'])->name('resultados_live.index');
+Route::get('/resultados_live/datos',  [ResultadosOlimpiadasController::class, 'datos'])->name('resultados_live.datos');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
