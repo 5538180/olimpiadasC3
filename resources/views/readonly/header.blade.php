@@ -12,9 +12,9 @@
                     <li><a href="/#inscripciones">Inscripciones</a></li>
                     <li><a href="/#horario">Horario</a></li>
                     <li><a href="/#resultados">Resultados</a>
-                        @if (\Illuminate\Support\Carbon::now()->isSameDay(\App\Models\Edicion::getEdicionActual()->fecha_celebracion))
+                       {{--  @if (\Illuminate\Support\Carbon::now()->isSameDay(\App\Models\Edicion::getEdicionActual()->fecha_celebracion))
                             <a href="/resultados_live"> (en vivo)</a>
-                        @endif
+                        @endif --}}
                     </li>
                     <li><a href="/#patrocinadores">Patrocinadores</a></li>
                     <li><a href="/#ejercicios_ediciones_anteriores">Ejercicios propuestos</a></li>
@@ -28,7 +28,7 @@
                     <li><a href="https://es-es.facebook.com/cifpcarlos3/" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
                     <li><a href="https://www.instagram.com/explore/locations/468129984/cifp-carlos-iii/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
                     <li><a href="https://github.com/2DAW-CarlosIII" class="icon brands fa-github"><span class="label">Github</span></a></li>
-                    <li><a href="mailto:30019702@murciaeduca.es" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+                    <                    git commit --amend -m "Nuevo mensaje"                    git commit --amend -m "Nuevo mensaje"li><a href="mailto:30019702@murciaeduca.es" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
                 </ul>
             </footer>
         </section>

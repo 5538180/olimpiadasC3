@@ -13,23 +13,20 @@ return new class extends Migration
     {
         Schema::create('cursos', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('edicion_id')->unique();
-            $table->string('enlace_curso_modle')->nullable();
+            $table->foreignId('edicion_id')->constrained('ediciones')->onDelete('cascade');
+            $table->integer('id_curso_modle')->unique();
             $table->integer('olimpiada')->unique();
-            $table->string('curso');
+            /* * Ahora lo saco de edicion el año $table->string('curso'); */
             $table->timestamps();
         });
     }
-/*   <li class="icon solid">
-            <a href="https://cifpcarlos3.net/codeweek/course/view.php?id=13" target="_blank">
-                <h4><b>XVI Olimpiadas</b> (Curso 2024-2025)</h4>
-            </a>
-        </li> */
+
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
+          Schema::disableForeignKeyConstraints(); // ? Deshabilitar temporalmente las restricciones de clave foránea
         Schema::dropIfExists('cursos');
     }
 };

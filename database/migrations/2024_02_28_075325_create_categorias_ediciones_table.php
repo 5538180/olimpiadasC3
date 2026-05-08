@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('categorias_ediciones', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('categoria_id')->constrained();
-            $table->foreignId('edicion_id')->constrained('ediciones');
+            $table->foreignId('categoria_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('edicion_id')->constrained('ediciones')->cascadeOnDelete();
             $table->integer('num_convocatoria')->nullable();
             $table->unique(['categoria_id', 'edicion_id']);
             $table->timestamps();

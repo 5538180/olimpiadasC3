@@ -35,10 +35,9 @@ public function store(Request $request, Curso $curso)
 
     {
           $request->validate([
-            'edicion_id' => 'required |integer',
-            'enlace_curso_modle' => 'nullable',
+            'edicion_id' => 'required|integer',
+            'id_curso_modle' => 'required|integer',
             'olimpiada' => 'required|integer',
-            'curso' => 'required|string',
         ]);
 
 
@@ -46,9 +45,8 @@ public function store(Request $request, Curso $curso)
              // ? necesario controlar que el id de edicion no esta vinculado a otro curso ya si ya esta puesto que sea unique?
         $curso = new Curso();
         $curso->edicion_id = $request->input('edicion_id');
-        $curso->enlace_curso_modle = $request->input('enlace_curso_modle');
+        $curso->id_curso_modle = $request->input('id_curso_modle');
         $curso->olimpiada =  $request->input('olimpiada');
-        $curso->curso = $request->input('curso');
         
 
 
@@ -91,14 +89,16 @@ public function store(Request $request, Curso $curso)
     /* ! Deberia controlar en la vista los datos, no aqui */
      
            $request->validate([
-            'edicion_id' => 'required',
-            'enlace_curso_modle' => 'nullable',
+            'edicion_id' => 'required|integer',
+            'id_curso_modle' => 'required|integer',
+            'olimpiada' => 'required|integer',
         ]);
 
        try {
        
         $curso->edicion_id = $request->input('edicion_id');
-        $curso->enlace_curso_modle = $request->input('enlace_curso_modle');
+        $curso->id_curso_modle = $request->input('id_curso_modle');
+        $curso->olimpiada = $request->input('olimpiada');
         
         $curso->save();
         return redirect()->route('cursos.index')->with('success', 'curso editado correctamente.'); 

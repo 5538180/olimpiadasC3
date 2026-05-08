@@ -1,12 +1,13 @@
 <?php
 
-namespace App\View\Components\fronted;
+namespace App\View\Components\Frontend;
 
+use App\Models\Edicion;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class cursoComponent extends Component
+class SelectEdicionCreateCurso extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +22,8 @@ class cursoComponent extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components..fronted.curso-component');
+
+        $ediciones = Edicion::orderBy('id')->get();
+        return view('components.frontend.select-edicion-create-curso', compact('ediciones'));
     }
 }

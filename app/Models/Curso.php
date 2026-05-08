@@ -16,17 +16,17 @@ class Curso extends Model
         // - Atributos a rellenar
     protected $fillable = [
         'edicion_id',
-        'enlace_curso_modle',
+        'id_curso_modle',
         'olimpiada',
-        'curso'
+        /* * Ahora de edicion de edicion'curso' */
     ];
     
     // - Casteos
        protected $casts = [
         'edicion_id' => 'integer',
-        'enlace_curso_modle' => 'string',
+        'id_curso_modle' => 'integer',
         'olimpiada' => 'integer',
-        'curso'=>'string'
+        /* * Ahora en edicion 'curso'=>'string' */
 
     ];
 

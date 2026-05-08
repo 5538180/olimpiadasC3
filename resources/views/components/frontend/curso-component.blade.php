@@ -26,7 +26,7 @@
         @foreach ($cursosYediciones as $cursoYedicion)
         
         <li class="icon solid">
-            <a href="{{ $cursoYedicion->enlace_curso_modle }}" target="_blank">
+            <a href="{{ $cursoYedicion->enlace_curso_modle }}" target="_blank"> 
                 <h4><b> Olimpiadas {{ $cursoYedicion->olimpiada }}</b>Curso : {{ $cursoYedicion->curso}}</h4>
             </a>
         </li>

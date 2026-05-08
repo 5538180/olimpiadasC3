@@ -23,8 +23,11 @@
         </li>
         @foreach ($ediciones as $edicion )
         <li class="icon solid">
-            <a href="{{ $edicion->curso->enlace_curso_modle }}" target="_blank">
-                <h4><b> Olimpiadas {{ $edicion->curso->olimpiada }}</b>Curso : {{ $edicion->curso->curso}}</h4>
+            <a href="{{'https://cifpcarlos3.net/codeweek/course/view.php?' . 'id=' . $edicion->curso?->id_curso_modle }}" target="_blank">
+                <h4><b> Olimpiadas {{ $edicion->curso?->olimpiada }}</b>Curso : {{
+                $cursoPre = $edicion->curso_escolar
+                
+                }}</h4>
             </a>
         </li>
         @endforeach

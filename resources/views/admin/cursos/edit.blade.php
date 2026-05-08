@@ -14,28 +14,20 @@
                         @csrf
                         @method('PUT')
                         <div class="mb-4">
-                            <label for="edicion_id" class="block text-gray-700">edicion_id</label>
-                            <input type="number" name="edicion_id" id="edicion_id" value="{{ old('edicion_id') ?? $curso->edicion_id }}"
-                                class="w-full border-gray-300 rounded-md" required min="1">
+                            <label for="id_curso_modle" class="block text-gray-700">ID curso Moodle</label>
+                            <input type="number" name="id_curso_modle" id="id_curso_modle"
+                                value="{{ old('id_curso_modle') ?? $curso->id_curso_modle }}" class="w-full border-gray-300 rounded-md" required min="1">
                         </div>
                         <div class="mb-4">
-                            <label for="enlace_curso_modle" class="block text-gray-700">enlace_curso_modle</label>
-                            <input type="text" name="enlace_curso_modle" id="enlace_curso_modle"
-                                value="{{ old('enlace_curso_modle') ?? $curso->enlace_curso_modle }}" class="w-full border-gray-300 rounded-md">
-                        </div>
-                        <div class="mb-4">
-                            <label for="olimpiada" class="block text-gray-700">olimpiada</label>
+                            <label for="olimpiada" class="block text-gray-700">Olimpiada</label>
                             <input type="number" name="olimpiada" id="olimpiada" pattern="^[0-9]+$" title="Formato: un numero" value="{{ old('olimpiada') ?? $curso->olimpiada }}"
                                 class="w-full border-gray-300 rounded-md" required>
                         </div>
-         
                         <div class="mb-4">
-                            <div class="mb-4">
-                                <label for="curso" class="block text-gray-700">curso</label>
-                                <input type="text" name="curso" id="curso" value="{{ old('curso') ?? $curso->curso }}"
-                                    pattern="^20[0-9]{2}-20[0-9]{2}$" title="Introduce el curso con formato 2024-2025"
-                                    class="w-full border-gray-300 rounded-md" placeholder="2024-2025" required>
-                            </div>
+                            <label for="edicion_id" class="block text-gray-700">Edición</label>
+                            <input type="number" name="edicion_id" id="edicion_id" value="{{ old('edicion_id') ?? $curso->edicion_id }}"
+                                class="w-full border-gray-300 rounded-md" required min="1">
+                        </div>
 
                             {{--  <div class="mb-4">
                                 <label for="css_file" class="block text-gray-700">File CSS</label>
@@ -43,7 +35,6 @@
                             </div> --}}
 
                             <input type="submit" class="primary" value="Guardar"/>
-                        </div>
                     </form>
                 </div>
             </div>
