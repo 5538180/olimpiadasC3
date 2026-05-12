@@ -28,14 +28,12 @@
                                     
                                     <td class="border px-4 py-2">{{ $curso->edicion_id }}</td>
                                     {{-- * Compruebo si viene nulo o no para no liarme --}}
-                                    <td class="border px-4 py-2">{{$curso->enlace_curso_modle ?? 'No hay enlace asociado'}}</td>
+                                    <td class="border px-4 py-2">{{$curso->id_curso_modle ?? 'No hay enlace asociado'}}</td>
                                     <td class="border px-4 py-2">{{ $curso->olimpiada }}</td>
-                                    <td class="border px-4 py-2">{{ $curso->curso }}</td>
+                                    
                         
                                     <td class="border px-4 py-2">
-                                        @if ($curso->css_file)
-                                            <a href="{{ asset('storage/' . $curso->css_file) }}" target="_blank" class="text-blue-500 underline">Ver archivo CSS</a>
-                                        @endif
+                                   
                                     </td>
 
                                     <td class="border px-4 py-2">
