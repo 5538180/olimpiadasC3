@@ -22,15 +22,15 @@
                             <input type="text" name="categorias_ediciones_id" id="categorias_ediciones_id" value="{{ old('categorias_ediciones_id') }}" class="w-full border-gray-300 rounded-md">
                         </div>
                         <div class="mb-4">
-                            <label for="patrocinadores_id" class="block text-gray-700">Patrocinadores</label>
-                            <select name="patrocinadores_id" id="patrocinadores_id" class="w-full border-gray-300 rounded-md">
+                            <label for="patrocinador_id" class="block text-gray-700">Patrocinadores</label>
+                            <select name="patrocinador_id" id="patrocinador_id" class="w-full border-gray-300 rounded-md">
                                 @foreach ($patrocinadores as $patrocinador)
                                     <option value="{{ $patrocinador->id }}">
                                         {{ $patrocinador->nombre }}
                                     </option>
                                 @endforeach
                             </select>
-                            <!-- <input type="text" name="patrocinadores_id" id="patrocinadores_id" value="{{ old('patrocinadores_id') }}" class="w-full border-gray-300 rounded-md">
+                            <!-- <input type="text" name="patrocinador_id" id="patrocinador_id" value="{{ old('patrocinador_id') }}" class="w-full border-gray-300 rounded-md">
                             -->
                         </div>
                         <input type="submit" class="primary" value="Guardar"/>

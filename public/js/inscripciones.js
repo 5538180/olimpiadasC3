@@ -23,6 +23,7 @@ window.onload = function() {
         }
     });
 */
+
     let cicloSelect = document.getElementById('ciclo');
 
     let categoriaSelect = document.getElementById('categoria');

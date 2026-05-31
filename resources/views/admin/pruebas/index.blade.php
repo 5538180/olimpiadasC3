@@ -26,7 +26,7 @@
                                     <td class="border px-4 py-2">{{ $prueba->id }}</td>
                                     <td class="border px-4 py-2">{{ $prueba->nombre }}</td>
                                     <td class="border px-4 py-2">{{ $prueba->categorias_ediciones_id }}</td>
-                                    <td class="border px-4 py-2">{{ $prueba->patrocinadores_id }}</td>
+                                    <td class="border px-4 py-2">{{ $prueba->patrocinador_id }}</td>
                                     <td class="border px-4 py-2">
                                         <a href="{{ route('pruebas.edit', $prueba) }}" class="btn btn-sm btn-warning">Editar</a>
                                         <form action="{{ route('pruebas.destroy', $prueba) }}" method="POST" class="inline">

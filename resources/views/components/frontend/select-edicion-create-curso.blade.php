@@ -19,7 +19,7 @@
 
     </select>
 
-   {{--   * Practica con Alpine  --}}
+   {{--  /*  * Practica con Alpine  --}}
  {{--    <hr>
     <br>
 <p x-text="edicionSeleccionada"></p>
@@ -29,7 +29,7 @@
             Edición id
         </label>
         <input name="id_edicion" type="number" placeholder="id de la edicion">
-    </div> --}}
+    </div>*/ --}}
 
 
 </div>

@@ -13,6 +13,22 @@ class Prueba extends Model
         'id',
         'nombre',
         'categorias_ediciones_id',
-        'patrocinadores_id'
+        'patrocinador_id',
     ];
+
+    public function resultadosOlimpiadasCaches()
+    {
+        return $this->hasMany(ResultadoOlimpiadaCache::class, 'id_prueba');
+    }
+
+    // * Nueva relacion creada
+    public function grupos()
+    {
+        return $this->belongsToMany(
+            Grupo::class,
+            'resultados_pruebas',
+            'prueba_id',
+            'grupo_id',
+        )->withPivot('puntos','tiempo','penalizacion');
+    }
 }

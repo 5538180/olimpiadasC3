@@ -2,6 +2,7 @@
 
 namespace App\View\Components\Frontend;
 
+use App\Models\Categoria;
 use App\Models\Edicion;
 use Closure;
 use Illuminate\Contracts\View\View;
@@ -30,15 +31,17 @@ class EdicionesViewComponentsComponent extends Component
      */
     public function render(): View|Closure|string
     {
-        $ediciones = Edicion::withWhereHas('curso')->get();
+        $ediciones = Edicion::withWhereHas('curso')->with('categorias')->get();
 
 
-        $ediciones->map(function ($edicion, $index) {
+        $categoria = new Categoria();
+
+        $ediciones->map(function ($edicion, $index) { 
             $edicion->curso_escolar = self::formateoCursoEscolar($edicion->curso_escolar);
 
             return $edicion;
         });
 
-        return view('components.frontend.ediciones-view-components-component', compact('ediciones'));
+        return view('components.frontend.ediciones-view-components-component', compact('ediciones','categoria'));
     }
 }

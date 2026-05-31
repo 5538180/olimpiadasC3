@@ -31,13 +31,13 @@ class PruebaController extends Controller
         $request->validate([
             'nombre' => 'required|max:100',
             'categorias_ediciones_id' => 'required|exists:categorias_ediciones,id',
-            'patrocinadores_id' => 'required|exists:patrocinadores,id',
+            'patrocinador_id' => 'required|exists:patrocinadores,id',
         ]);
 
         Prueba::create([
             'nombre' => $request->nombre,
             'categorias_ediciones_id' => $request->categorias_ediciones_id,
-            'patrocinadores_id' => $request->patrocinadores_id,
+            'patrocinador_id' => $request->patrocinador_id,
         ]);
 
         return redirect()->route('pruebas.index')->with('success', 'Prueba creado correctamente.');
@@ -54,12 +54,12 @@ class PruebaController extends Controller
         $request->validate([
             'nombre' => 'required|max:100',
             'categorias_ediciones_id' => 'required|exists:categorias_ediciones,id',
-            'patrocinadores_id' => 'required|exists:patrocinadores,id',
+            'patrocinador_id' => 'required|exists:patrocinadores,id',
         ]);
 
         $prueba->nombre = $request->nombre;
         $prueba->categorias_ediciones_id = $request->categorias_ediciones_id;
-        $prueba->patrocinadores_id = $request->patrocinadores_id;
+        $prueba->patrocinador_id = $request->patrocinador_id;
         $prueba->save();
 
         return redirect()->route('pruebas.index')->with('success', 'Prueba actualizado correctamente.');

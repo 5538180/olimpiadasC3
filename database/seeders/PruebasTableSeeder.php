@@ -18,6 +18,7 @@ class PruebasTableSeeder extends Seeder
         foreach (self::$pruebas as $prueba) {
             DB::table('pruebas')->insert([
                 'categorias_ediciones_id' => $prueba['categoria'],
+                'patrocinador_id' => $prueba['patrocinador'],
                 'nombre' => $prueba['nombre'],
             ]);
         }
@@ -25,6 +26,6 @@ class PruebasTableSeeder extends Seeder
     }
 
     private static $pruebas = array(
-        array('categoria' => '1','patrocinador' => 'PRUEBA','nombre' => 'Prueba'),
+        array('categoria' => '1','patrocinador' => '1','nombre' => 'Prueba'),
     );
 }
