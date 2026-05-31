@@ -20,7 +20,7 @@ class CicloFactory extends Factory
         return [
             'codigo' => fake()->bothify('??####'),
             'nombre' => fake()->word(),
-            'grado_id' => Grado::factory(),
+            'grado_id' => Grado::query()->inRandomOrder()->value('id') ?? Grado::factory()->create()->id,
         ];
     }
 }

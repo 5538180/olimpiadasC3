@@ -12,6 +12,10 @@ class PatrocinadoresSeeder extends Seeder
      */
     public function run(): void
     {
-        Patrocinador::factory(2)->create();
+        if (Patrocinador::query()->exists()) {
+            return;
+        }
+
+        Patrocinador::factory(15)->create();
     }
 }

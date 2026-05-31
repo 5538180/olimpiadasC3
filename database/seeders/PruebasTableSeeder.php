@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Prueba;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class PruebasTableSeeder extends Seeder
 {
@@ -13,19 +13,11 @@ class PruebasTableSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('pruebas')->truncate();
-
-        foreach (self::$pruebas as $prueba) {
-            DB::table('pruebas')->insert([
-                'categorias_ediciones_id' => $prueba['categoria'],
-                'patrocinador_id' => $prueba['patrocinador'],
-                'nombre' => $prueba['nombre'],
-            ]);
+        if (Prueba::query()->exists()) {
+            return;
         }
-        $this->command->info('¡Tablas categorias_ediciones, patrocinadores y pruebas inicializada con datos!');
-    }
 
-    private static $pruebas = array(
-        array('categoria' => '1','patrocinador' => '1','nombre' => 'Prueba'),
-    );
+        Prueba::factory(15)->create();
+        $this->command->info('¡Tabla pruebas inicializada con datos!');
+    }
 }

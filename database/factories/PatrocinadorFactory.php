@@ -18,7 +18,7 @@ class PatrocinadorFactory extends Factory
     {
         return [
             'nombre' => fake()->company(),
-            'logotipo' => fake()->image(),
+            'logotipo' => 'patrocinadores/default.png',
         ];
     }
 }

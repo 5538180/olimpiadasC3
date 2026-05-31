@@ -22,68 +22,27 @@ class ClasificacionesService
     // -
     public function arrayParciales($nombreCompleto)
     {
-        // - Validaciones de entrada
+        $grupo = $this->grupoDesdeNombreCompleto($nombreCompleto);
 
+        if (! $grupo) {
+            return ClasificacionesResource::collection(collect());
+        }
 
-        $arrayNombre = explode(' ', trim($nombreCompleto), 2);
+        $resultados = $this->resultadosGrupo($grupo)->get();
 
-        // ! cambair a ngrupo->nombre
-        $nombreGrupo = $arrayNombre[0];
-        // ! cambiar a grupo->centro
-        $centroGrupo = $arrayNombre[1] ?? null;
-
-        // ? Viene un nombre de centro o un id del centro?? Si es id del centro ok, si no hay que buscar el nombre del centro para saber su id asociado
-        // - LLAMADAS A BBDD
-
-        $grupo = Grupo::where('nombre', $nombreGrupo)
-            ->where(function ($query) use ($centroGrupo) {
-                if (is_numeric($centroGrupo)) {
-                    $query->where('centro_id', (int) $centroGrupo);
-
-                    return;
-                }
-
-                $query->whereHas('centro', function ($query) use ($centroGrupo) {
-                    $query->where('dencen', $centroGrupo);
-                });
-            })
-            ->firstOrFail();
-
-        $pruebasGrupoConSusResultados = $grupo->pruebas()
-            ->with(['resultadosOlimpiadasCaches' => function ($query) use ($nombreGrupo, $centroGrupo) {
-                $query->where('firstname', $nombreGrupo)
-                    ->where('lastname', $centroGrupo);
-            }])
-            ->get();
-
-        $cambio = $pruebasGrupoConSusResultados->flatMap(function ($prueba) {
-            return $prueba->resultadosOlimpiadasCaches->map(function ($roc) {
-                $nroc = [
-                    'id_prueba' => $roc->id_prueba,
-                    'nombrePrueba' => $roc->nombrePrueba,
-                    'tiempoFinal' => $roc->TiempoFinal,
-                    'grado' => $roc->grado,
-                ];
-
-                return $nroc;
-            });
-        });
-
-        $parciales = $cambio->map(function ($prueba) {
-
-            $idPrueba = $prueba['id_prueba'];
+        $parciales = $resultados->map(function ($resultado) {
+            $idPrueba = $resultado->id_prueba;
             $posicion = ResultadoOlimpiadaCache::where('id_prueba', $idPrueba)
-                ->where('grado', $prueba['grado'])
-                ->where('TiempoFinal', '<', $prueba['tiempoFinal'])
+                ->where('grado', $resultado->grado)
+                ->where('TiempoFinal', '<', $resultado->TiempoFinal)
                 ->count() + 1;
 
             return [
-                'id_prueba' => $prueba['id_prueba'],
-                'nombrePrueba' => $prueba['nombrePrueba'],
-                'tiempoFinal' => $prueba['tiempoFinal'],
+                'id_prueba' => $resultado->id_prueba,
+                'nombrePrueba' => $resultado->nombrePrueba,
+                'tiempoFinal' => $resultado->TiempoFinal,
                 'posicion' => $posicion,
             ];
-
         });
 
         return ClasificacionesResource::collection($parciales);
@@ -93,71 +52,33 @@ class ClasificacionesService
 
     public function calcularGlobal($nombreCompleto): int
     {
-        $arrayNombre = explode(' ', trim($nombreCompleto), 2);
-        $nombreGrupo = $arrayNombre[0] ?? '';
-        $centroGrupo = $arrayNombre[1] ?? null;
+        $grupo = $this->grupoDesdeNombreCompleto($nombreCompleto);
 
-        $resultadoGrupo = ResultadoOlimpiadaCache::where('firstname', $nombreGrupo)
-            ->where('lastname', $centroGrupo)
-            ->first();
-
-        if (! $resultadoGrupo) {
+        if (! $grupo) {
             return 0;
         }
 
-        $grupoObjetivo = Grupo::where('nombre', $nombreGrupo)
-            ->where(function ($query) use ($centroGrupo) {
-                if (is_numeric($centroGrupo)) {
-                    $query->where('centro_id', (int) $centroGrupo);
-                }
+        $resultadoParticipante = $this->resultadosGrupo($grupo)->first();
 
-                $query->orWhereHas('centro', function ($query) use ($centroGrupo) {
-                    $query->where('dencen', $centroGrupo);
-                });
-            })
-            ->first();
-
-        if (! $grupoObjetivo) {
+        if (! $resultadoParticipante) {
             return 0;
         }
 
-        $gradoGrupo = $resultadoGrupo->grado;
+        $ranking = ResultadoOlimpiadaCache::selectRaw(
+            'firstname, lastname, SUM(CASE WHEN maxpuntuacion = 100 THEN 1 ELSE 0 END) as total_100, SUM(maxpuntuacion) as total_puntos, MIN(TiempoFinal) as mejor_tiempo'
+        )
+            ->where('grado', $resultadoParticipante->grado)
+            ->groupBy('firstname', 'lastname')
+            ->orderByDesc('total_100')
+            ->orderByDesc('total_puntos')
+            ->orderBy('mejor_tiempo')
+            ->get();
 
-        $todosLosGrupos = Grupo::with('pruebas.resultadosOlimpiadasCaches')->get();
-        $ranking = collect();
-
-        foreach ($todosLosGrupos as $grupo) {
-            $esMismoGrado = false;
-            $totalPruebasCon100 = 0;
-
-            foreach ($grupo->pruebas as $prueba) {
-                $tieneResultadoDelGrado = $prueba->resultadosOlimpiadasCaches->contains(function ($resultado) use ($gradoGrupo) {
-                    return $resultado->grado === $gradoGrupo;
-                });
-
-                if ($tieneResultadoDelGrado) {
-                    $esMismoGrado = true;
-                }
-
-                if ($tieneResultadoDelGrado && $prueba->pivot->puntos == 100) {
-                    $totalPruebasCon100++;
-                }
-            }
-
-            if ($esMismoGrado) {
-                $ranking->push([
-                    'grupo_id' => $grupo->id,
-                    'nombre' => $grupo->nombre,
-                    'centro_id' => $grupo->centro_id,
-                    'total_100' => $totalPruebasCon100,
-                ]);
-            }
-        }
-
-        $ranking = $ranking->sortByDesc('total_100')->values();
-
-        foreach ($ranking as $indice => $grupo) {
-            if ((int) $grupo['grupo_id'] === (int) $grupoObjetivo->id) {
+        foreach ($ranking as $indice => $participante) {
+            if (
+                $participante->firstname === $resultadoParticipante->firstname
+                && $participante->lastname === $resultadoParticipante->lastname
+            ) {
                 return (int) $indice + 1;
             }
         }
@@ -165,5 +86,31 @@ class ClasificacionesService
         return 0;
     }
 
+    private function grupoDesdeNombreCompleto(string $nombreCompleto): ?Grupo
+    {
+        $nombreCompleto = trim($nombreCompleto);
+        $ultimaSeparacion = strrpos($nombreCompleto, ' ');
+
+        if ($ultimaSeparacion === false) {
+            return null;
+        }
+
+        $nombreGrupo = trim(substr($nombreCompleto, 0, $ultimaSeparacion));
+        $centroId = trim(substr($nombreCompleto, $ultimaSeparacion + 1));
+
+        if ($nombreGrupo === '' || ! ctype_digit($centroId)) {
+            return null;
+        }
+
+        return Grupo::where('nombre', $nombreGrupo)
+            ->where('centro_id', (int) $centroId)
+            ->first();
+    }
+
+    private function resultadosGrupo(Grupo $grupo)
+    {
+        return ResultadoOlimpiadaCache::where('firstname', $grupo->nombre)
+            ->where('lastname', (string) $grupo->centro_id);
+    }
 
 }

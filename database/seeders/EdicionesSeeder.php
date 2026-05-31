@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Edicion;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -12,15 +13,17 @@ class EdicionesSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\Edicion::truncate();
+        Edicion::truncate();
         foreach (self::$ediciones as $edicion) {
-            \App\Models\Edicion::create([
+            Edicion::create([
                 'curso_escolar' => $edicion['curso_escolar'],
                 'fecha_celebracion' => $edicion['fecha_celebracion'],
                 'fecha_apertura' => $edicion['fecha_apertura'],
                 'fecha_cierre' => $edicion['fecha_cierre'],
             ]);
         }
+
+        Edicion::factory(11)->create();
     }
 
     private static $ediciones = array(

@@ -20,8 +20,8 @@ class PruebaFactory extends Factory
     {
         return [
             'nombre' => $this->faker->word(),
-            'categorias_ediciones_id' => CategoriaEdicion::factory(),
-            'patrocinador_id' => Patrocinador::factory(),
+            'categorias_ediciones_id' => CategoriaEdicion::query()->inRandomOrder()->value('id') ?? CategoriaEdicion::factory()->create()->id,
+            'patrocinador_id' => Patrocinador::query()->inRandomOrder()->value('id') ?? Patrocinador::factory()->create()->id,
         ];
     }
 }

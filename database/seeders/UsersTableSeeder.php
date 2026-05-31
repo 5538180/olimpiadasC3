@@ -20,6 +20,7 @@ class UsersTableSeeder extends Seeder
             'email' => env('ADMIN_EMAIL', 'admin@admin.com'),
             'password' => bcrypt(env('ADMIN_PASSWORD', 'password')),
             ]);
+            User::factory(14)->create();
             /*
                 if(config('app.env') ==='local'){
                     // Crear 10 usuarios con el estado docente

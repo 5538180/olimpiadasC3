@@ -18,14 +18,14 @@ class CategoriasEdicionesSeeder extends Seeder
             return;
         }
 
-        $edicion = Edicion::first();
-
-        Categoria::all()->each(function ($categoria) use ($edicion) {
-            CategoriaEdicion::create([
-                'categoria_id' => $categoria->id,
-                'edicion_id' => $edicion->id,
-                'num_convocatoria' => fake()->numberBetween(1, 10),
-            ]);
+        Edicion::all()->each(function ($edicion) {
+            Categoria::all()->each(function ($categoria) use ($edicion) {
+                CategoriaEdicion::create([
+                    'categoria_id' => $categoria->id,
+                    'edicion_id' => $edicion->id,
+                    'num_convocatoria' => fake()->numberBetween(1, 10),
+                ]);
+            });
         });
     }
 }

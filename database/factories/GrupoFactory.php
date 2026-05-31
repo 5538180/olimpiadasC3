@@ -21,13 +21,13 @@ class GrupoFactory extends Factory
     public function definition(): array
     {
         return [
-            'nombre' => fake()->word(),
-            'abreviatura' => fake()->word(),
+            'nombre' => fake()->unique()->words(2, true),
+            'abreviatura' => strtoupper(fake()->unique()->bothify('G###')),
             'password' => 'password',
-            'tutor' => User::factory(),
-            'centro_id' => Centro::factory(),
-            'ciclo_id' => Ciclo::factory(),
-            'categoria_id' => Categoria::factory(),
+            'tutor' => User::query()->value('id') ?? User::factory()->create()->id,
+            'centro_id' => Centro::query()->inRandomOrder()->value('id') ?? Centro::factory()->create()->id,
+            'ciclo_id' => Ciclo::query()->inRandomOrder()->value('id') ?? Ciclo::factory()->create()->id,
+            'categoria_id' => Categoria::query()->inRandomOrder()->value('id') ?? Categoria::factory()->create()->id,
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Grupo;
 use App\Models\Prueba;
 use App\Models\ResultadoOlimpiadaCache;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -34,17 +35,14 @@ class ResultadoOlimpiadaCacheFactory extends Factory
             'GS' => ['Programación', 'Bases de datos', 'Redes Locales', 'Sistemas', 'Lenguajes de Marcas'],
         ];
         $nombrePrueba = fake()->randomElement($pruebasPorGrado[$grado]);
-
-
-
-
-
+        $grupo = Grupo::query()->inRandomOrder()->first() ?? Grupo::factory()->create();
+        $prueba = Prueba::query()->inRandomOrder()->first() ?? Prueba::factory()->create();
 
         return [
             'grado' => $grado,
-            'lastname' => fake()->lastName(),
-            'firstname' => fake()->firstName(),
-            'id_prueba' => Prueba::factory(),
+            'lastname' => (string) $grupo->centro_id,
+            'firstname' => $grupo->nombre,
+            'id_prueba' => $prueba->id,
             'maxpuntuacion' => fake()->randomElement([0, 33, 66, 100]),
             'MomentoConsecución' => $momentoConsecucion,
             'penalizaciones' => $penalizaciones,

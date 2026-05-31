@@ -33,6 +33,8 @@ class DatabaseSeeder extends Seeder
             $this->call(ParticipantesSeeder::class);
             $this->call(EdicionGrupoSeeder::class);
             $this->call(ResultadosPruebasSeeder::class);
+            $this->call(ResultadoOlimpiadaCacheSeeder::class);
+            $this->command->info('¡Creados 30 ResultadosOlimpiadaCache!');
         }
         // \App\Models\User::factory(10)->create();
 
@@ -41,8 +43,6 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         $this->command->info('Tablas inicializadas con datos!');
-        $this->call(ResultadoOlimpiadaCacheSeeder::class);
-        $this->command->info('¡Creados 30 ResultadosOlimpiadaCache!');
 
         Model::reguard();
         Schema::enableForeignKeyConstraints();

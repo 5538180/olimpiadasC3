@@ -12,6 +12,10 @@ class ResultadoOlimpiadaCacheSeeder extends Seeder
      */
     public function run(): void
     {
-        ResultadoOlimpiadaCache::factory(30)->create();
+        if (ResultadoOlimpiadaCache::query()->exists()) {
+            return;
+        }
+
+        ResultadoOlimpiadaCache::factory()->count(30)->create();
     }
 }

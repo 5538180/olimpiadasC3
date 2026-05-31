@@ -18,7 +18,10 @@ class ResultadoFactory extends Factory
     public function definition(): array
     {
         return [
-            'id' => Edicion::factory(),
+            'id' => Edicion::query()
+                ->whereNotIn('id', \App\Models\Resultado::query()->select('id'))
+                ->inRandomOrder()
+                ->value('id') ?? Edicion::factory()->create()->id,
             'palmares' => fake()->sentence(),
         ];
     }

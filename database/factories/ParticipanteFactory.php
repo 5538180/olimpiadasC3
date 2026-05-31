@@ -18,7 +18,7 @@ class ParticipanteFactory extends Factory
     public function definition(): array
     {
         return [
-            'grupo_id' => Grupo::factory(),
+            'grupo_id' => Grupo::query()->inRandomOrder()->value('id') ?? Grupo::factory()->create()->id,
             'nombre' => fake()->firstName(),
             'apellidos' => fake()->lastName(),
         ];
