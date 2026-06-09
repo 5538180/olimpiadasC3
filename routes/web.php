@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CursoController;
+use App\Http\Controllers\ResultadoWebController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CategoriaController;
 use App\Http\Controllers\Admin\CentroController;
@@ -62,6 +63,11 @@ Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function ()
         Route::get('files',            [EdicionFileController::class, 'index'])  ->name('files.index');
         Route::post('files',           [EdicionFileController::class, 'store'])  ->name('files.store');
         Route::delete('files/{file}',  [EdicionFileController::class, 'destroy'])->name('files.destroy');
+
+
+
+        /* * Nueva ruta  participante revisará sus notas desde el navegador*/
+     Route::get('mis-resultados', [ResultadoWebController::class, 'index'])->name('resultados.index')->middleware('verificar.fase.abierta');
     });
 
     // - Nuevas Rutas para Curso

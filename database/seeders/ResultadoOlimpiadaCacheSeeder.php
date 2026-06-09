@@ -17,5 +17,7 @@ class ResultadoOlimpiadaCacheSeeder extends Seeder
         }
 
         ResultadoOlimpiadaCache::factory()->count(30)->create();
+        $this->command->info('¡Creados 30 ResultadosOlimpiadaCache!');
+
     }
 }

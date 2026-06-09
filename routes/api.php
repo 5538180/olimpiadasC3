@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ClasificacionesControllerApi;
+use App\Http\Controllers\Api\PuntuacionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,3 +23,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::get('miPuesto/{nombreCompleto}', [ClasificacionesControllerApi::class, 'index']);
+
+/* * Ruta  Juez registre la evaluación mediante una petición POST */
+Route::post('participantes/{id}/puntuar', [PuntuacionController::class, 'store'])->middleware(['auth:sanctum','verificar.fase.abierta']);

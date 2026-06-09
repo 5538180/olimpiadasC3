@@ -8,8 +8,11 @@ use Illuminate\Http\Request;
 
 class ClasificacionesControllerApi extends Controller
 {
-    public function __construct(private ClasificacionesService $clasificacionesService)
+    private ClasificacionesService $clasificacionesService;
+
+    public function __construct(ClasificacionesService $clasificacionesService)
     {
+        $this->clasificacionesService = $clasificacionesService;
     }
 
     /**
@@ -21,10 +24,11 @@ class ClasificacionesControllerApi extends Controller
         $parciales = $this->clasificacionesService->arrayParciales($nombreCompleto);
         $global = $this->clasificacionesService->calcularGlobal($nombreCompleto);
 
-        return [
+
+        return response()->json([
             'parciales' => $parciales,
             'global' => $global,
-        ];
+        ]);
     }
 
     /**

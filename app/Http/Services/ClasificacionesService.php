@@ -25,7 +25,7 @@ class ClasificacionesService
         $grupo = $this->grupoDesdeNombreCompleto($nombreCompleto);
 
         if (! $grupo) {
-            return ClasificacionesResource::collection(collect());
+            return null;
         }
 
         $resultados = $this->resultadosGrupo($grupo)->get();

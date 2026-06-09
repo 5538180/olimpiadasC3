@@ -34,7 +34,6 @@ class DatabaseSeeder extends Seeder
             $this->call(EdicionGrupoSeeder::class);
             $this->call(ResultadosPruebasSeeder::class);
             $this->call(ResultadoOlimpiadaCacheSeeder::class);
-            $this->command->info('¡Creados 30 ResultadosOlimpiadaCache!');
         }
         // \App\Models\User::factory(10)->create();
 

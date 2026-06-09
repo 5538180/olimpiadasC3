@@ -50,5 +50,10 @@
             <script src="{{ asset('/slick/slick.min.js') }}"></script>
             <script src="{{ asset('/slick/settings.js') }}"></script>
         @show
+
+
+
+
+        @yield('mi_puntuacion')
 	</body>
 </html>
