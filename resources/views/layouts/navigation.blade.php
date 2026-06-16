@@ -46,6 +46,14 @@
                     </x-nav-link>
                 </div>
                 @endcan
+                {{-- TODO MODIFICADO antes el menu no mostraba cursos; se cambia para que aparezca al admin. --}}
+                @if (Auth::user()?->isAdmin())
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('cursos.index')" :active="request()->routeIs('cursos.index') || request()->routeIs('ediciones.cursos.*')">
+                        {{ __('Cursos') }}
+                    </x-nav-link>
+                </div>
+                @endif
                 @can('viewAny', App\Models\Resultado::class)
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('resultados.index')" :active="request()->routeIs('resultados.index')">
@@ -128,6 +136,12 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            {{-- TODO MODIFICADO antes en responsive tampoco existia acceso a cursos; se cambia para mostrarlo al admin. --}}
+            @if (Auth::user()?->isAdmin())
+            <x-responsive-nav-link :href="route('cursos.index')" :active="request()->routeIs('cursos.index') || request()->routeIs('ediciones.cursos.*')">
+                {{ __('Cursos') }}
+            </x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->

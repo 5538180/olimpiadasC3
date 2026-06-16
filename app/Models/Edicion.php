@@ -3,9 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class Edicion extends Model
+class Edicion extends BaseModel
 {
     use HasFactory;
 
@@ -47,6 +46,11 @@ class Edicion extends Model
     public function grupos()
     {
         return $this->belongsToMany(Grupo::class, 'edicion_grupo');
+    }
+
+      public function curso()
+    {
+        return $this->hasOne(Curso::class, 'edicion_id');
     }
 
 }

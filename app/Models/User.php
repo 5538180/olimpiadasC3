@@ -8,6 +8,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+/**
+ * @method static \Illuminate\Database\Eloquent\Builder<static> query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static> newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static> where($column, $operator = null, $value = null, $boolean = 'and')
+ * @mixin \Illuminate\Database\Eloquent\Builder<static>
+ */
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;

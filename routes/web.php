@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CategoriaController;
 use App\Http\Controllers\Admin\CentroController;
 use App\Http\Controllers\Admin\CicloController;
+use App\Http\Controllers\Admin\CursoController;
 use App\Http\Controllers\Admin\EdicionFileController;
 use App\Http\Controllers\Admin\GradoController;
 use App\Http\Controllers\Admin\GrupoController;
@@ -42,6 +43,17 @@ Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function ()
     Route::get('/', function () {
         return redirect()->route('grupos.index');
     })->name('dashboard');
+    // TODO MODIFICADO antes no existia una ruta directa a cursos en el menu; se cambia para redirigir a la edicion actual.
+    Route::get('cursos', function () {
+        $edicion = \App\Models\Edicion::getEdicionActual();
+
+        if (! $edicion) {
+            return redirect()->route('ediciones.index')
+                ->withErrors(['curso' => 'No hay ninguna edicion disponible para gestionar cursos.']);
+        }
+
+        return redirect()->route('ediciones.cursos.index', ['edicion' => $edicion]);
+    })->name('cursos.index');
     Route::resource('categorias', CategoriaController::class);
     Route::resource('centros', CentroController::class);
     Route::resource('grados.ciclos', CicloController::class)->shallow();
@@ -61,6 +73,10 @@ Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function ()
         Route::post('files',           [EdicionFileController::class, 'store'])  ->name('files.store');
         Route::delete('files/{file}',  [EdicionFileController::class, 'destroy'])->name('files.destroy');
     });
+    // TODO MODIFICADO antes se usaba AdminCursoController por un conflicto de imports; se cambia a CursoController porque ya no hay otro controlador con ese nombre en este archivo.
+    Route::resource('ediciones.cursos', CursoController::class)
+        ->parameters(['ediciones' => 'edicion', 'cursos' => 'curso']);
+
 });
 
 Route::middleware('auth')->group(function () {

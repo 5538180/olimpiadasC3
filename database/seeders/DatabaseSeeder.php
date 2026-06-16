@@ -26,13 +26,14 @@ class DatabaseSeeder extends Seeder
         if (App::environment('local')) {
             $this->call(EdicionesSeeder::class);
             $this->call(PruebasTableSeeder::class);
+            $this->call(CursoSeeder::class);
         }
-        // \App\Models\User::factory(10)->create();
+         \App\Models\User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+         \App\Models\User::factory()->create([
+             'name' => 'Test User',
+             'email' => 'test@example.com',
+         ]);
         $this->command->info('Tablas inicializadas con datos!');
 
         Model::reguard();

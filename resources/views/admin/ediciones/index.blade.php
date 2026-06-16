@@ -38,6 +38,8 @@
 
                                     <td class="border px-4 py-2">
                                         <a href="{{ route('ediciones.edit', $edicion) }}" class="btn btn-sm btn-warning">Editar</a>
+                                        {{-- TODO MODIFICADO antes desde ediciones no habia acceso directo al curso; se cambia para entrar desde aqui. --}}
+                                        <a href="{{ route('ediciones.cursos.index', ['edicion' => $edicion]) }}" class="btn btn-sm btn-primary">Curso</a>
                                         <form action="{{ route('ediciones.destroy', $edicion) }}" method="POST" class="inline">
                                             @csrf
                                             @method('DELETE')
